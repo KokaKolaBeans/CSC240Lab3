@@ -16,6 +16,11 @@ UnsortedType::UnsortedType() // Class constructor
 
   length = 0;
   listData = NULL;
+  head = new NodeType;
+  tail = new NodeType;
+  head->next = tail; // connects head and tail–all other elements will be placed between in between
+  currentPos = head;
+  // we also have NodeType *cursor
 }
 bool UnsortedType::IsFull() const
 // Returns true if there is no room for another ItemType
@@ -53,21 +58,20 @@ void UnsortedType::MakeEmpty()
   }
   length = 0;
 }
-void UnsortedType::PutItem(ItemType item)
+void UnsortedType::PutItem(ItemType item) // Rewrote this from scratch
 // item is in the list; length has been incremented.
 {
-  NodeType *location; // Declare a pointer to a node
 
-  location = new NodeType;   // Get a new node
-  location->info = item;     // Store the item in the node
-  location->next = listData; // Store address of first node
-                             //   in next field of new node
-  listData = location;       // Store address of new node into
-                             //   external pointer
-  length++;                  // Increment length of the list
+  NodeType *newNode = new NodeType;
+  newNode->info = item;
+  NodeType *temp = head->next;
+  head->next = newNode;
+  newNode->next = temp;
+
+  length++;
 }
 
-ItemType UnsortedType::GetItem(ItemType &item, bool &found)
+ItemType UnsortedType::GetItem(ItemType &item, bool &found) // ItemType is a StudenType that inherets from PersonType
 // Pre:  Key member(s) of item is initialized.
 // Post: If found, item's key matches an element's key in the
 //       list and a copy of that element has been stored in item;
@@ -98,11 +102,39 @@ ItemType UnsortedType::GetItem(ItemType &item, bool &found)
   return item;
 }
 
+// void UnsortedType::DeleteItem(ItemType item)
+// // Pre:  item's key has been initialized.
+// //       An element in the list has a key that matches item's.
+// // Post: No element in the list has a key that matches item's.
+// {
+//   NodeType *location = listData;
+//   NodeType *tempLocation;
+
+//   // Locate node to be deleted.
+//   if (item.ComparedTo(listData->info) == EQUAL)
+//   {
+//     tempLocation = location;
+//     listData = listData->next; // Delete first node.
+//   }
+//   else
+//   {
+//     while (item.ComparedTo((location->next)->info) != EQUAL)
+//       location = location->next;
+
+//     // Delete node at location->next
+//     tempLocation = location->next;
+//     location->next = (location->next)->next;
+//   }
+//   delete tempLocation;
+//   length--;
+// }
+
 void UnsortedType::DeleteItem(ItemType item)
 // Pre:  item's key has been initialized.
 //       An element in the list has a key that matches item's.
 // Post: No element in the list has a key that matches item's.
 {
+
   NodeType *location = listData;
   NodeType *tempLocation;
 
@@ -160,5 +192,48 @@ UnsortedType::~UnsortedType()
 
 void UnsortedType::Print()
 {
-  // Complete this.;
+  // ItemType item is a StudentType. listData points to the first node after each reset.
+  // -> dereferences the listData pointer so that we can access the data sitting inside this node
+
+  if (length == 0)
+  {
+    std::cout << "Empty" << std::endl;
+    return;
+  }
+  else
+  {
+    for (int k = 0; k < length; k++)
+    {
+      ItemType item = listData->info;
+      std::cout << "Name: " << item.NameIs() << std::endl;
+      std::cout << "Status: " << item.GetStatus() << std::endl;
+      listData = listData->next;
+      // Complete this.;
+    }
+  }
+  return;
 }
+
+/*
+void UnsortedType::Print()
+{
+  // ItemType item is a StudentType. listData points to the first node after each reset.
+  // -> dereferences the listData pointer so that we can access the data sitting inside this node
+  if (listData->next == NULL)
+  {
+    std::cout << "Empty" << std::endl;
+  }
+  else
+  {
+    while (listData != NULL)
+    {
+      ItemType item = listData->info;
+      std::cout << "Name: " << item.NameIs() << std::endl;
+      std::cout << "Status: " << item.GetStatus() << std::endl;
+      listData = listData->next;
+      // Complete this.;
+    }
+  }
+}
+*/
+// g++ *.cpp -o main && ./main
