@@ -8,24 +8,28 @@
 #include "PersonType.h"
 #include <iostream>
 using namespace std;
-void PersonType::Initialize(string n, DateType dob){
+void PersonType::Initialize(string n, DateType dob)
+{
 	name = n;
 	birthdate = dob;
 }
 
-string PersonType::NameIs(){
+string PersonType::NameIs()
+{
 	return name;
 }
 
-DateType PersonType::BirthdateIs(){
+DateType PersonType::BirthdateIs()
+{
 	return birthdate;
 }
 
-RelationType PersonType::ComparedTo(PersonType& somePerson){
+RelationType PersonType::ComparedTo(PersonType &somePerson)
+{
 	return birthdate.ComparedTo(somePerson.birthdate);
 }
 
-void PersonType:: Print(){
+void PersonType::Print()
+{
 	cout << "Name: " << name << endl;
 }
-

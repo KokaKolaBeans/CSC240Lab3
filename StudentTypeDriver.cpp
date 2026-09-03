@@ -8,9 +8,10 @@
 #include <iostream>
 using namespace std;
 
-int main(){
+int main()
+{
 	StudentType student1, student2, student3;
-	DateType student1DOB, student2DOB,student3DOB;
+	DateType student1DOB, student2DOB, student3DOB;
 
 	student1DOB.Initialize(7, 15, 1978);
 	student2DOB.Initialize(6, 23, 1980);
@@ -25,20 +26,20 @@ int main(){
 	classList.PutItem(student1);
 	classList.PutItem(student2);
 
-	//NON_ATTENDING = 0, ENROLLED = 1, GRADUATED = 2
-	cout << "Compare student1 to student1: " << student1.ComparedTo(student1) << endl;  //expect 1 for same status
-	cout << "Compare student1 to student2: " << student1.ComparedTo(student2) << endl;  //expect 0 when status is not the same
+	// NON_ATTENDING = 0, ENROLLED = 1, GRADUATED = 2
+	cout << "Compare student1 to student1: " << student1.ComparedTo(student1) << endl; // expect 1 for same status
+	cout << "Compare student1 to student2: " << student1.ComparedTo(student2) << endl; // expect 0 when status is not the same
 
 	cout << "Print list 0:\n";
-	classList.ResetList();  //reset the current position to NULL
+	classList.ResetList(); // reset the current position to NULL
 	classList.Print();
 	cout << "Print list 1:\n";
 	classList.DeleteItem(student1);
-	classList.ResetList();  //this must be reset before printing the list everytime
+	classList.ResetList(); // this must be reset before printing the list everytime
 	classList.Print();
 	cout << "Print list 2:\n";
 	classList.PutItem(student3);
-	classList.ResetList();  //this must be reset before printing the list everytime
+	classList.ResetList(); // this must be reset before printing the list everytime
 	classList.Print();
 	cout << "Print list 3:\n";
 	classList.DeleteItem(student2);
@@ -46,3 +47,4 @@ int main(){
 	classList.ResetList();
 	classList.Print();
 }
+// g++ *.cpp -o lab3 && ./lab3
