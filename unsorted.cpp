@@ -17,10 +17,10 @@ UnsortedType::UnsortedType() // Class constructor
   length = 0;
   listData = NULL;
   head = new NodeType;
+  head->next = NULL;
   tail = new NodeType;
   head->next = tail; // connects head and tail–all other elements will be placed between in between
-  currentPos = head;
-  // we also have NodeType *cursor
+  currentPos = cursor = head;
 }
 bool UnsortedType::IsFull() const
 // Returns true if there is no room for another ItemType
@@ -71,35 +71,93 @@ void UnsortedType::PutItem(ItemType item) // Rewrote this from scratch
   length++;
 }
 
+// Came with Driver:
+
+// ItemType UnsortedType::GetItem(ItemType &item, bool &found) // ItemType is a StudenType that inherets from PersonType
+// // Pre:  Key member(s) of item is initialized.
+// // Post: If found, item's key matches an element's key in the
+// //       list and a copy of that element has been stored in item;
+// //       otherwise, item is unchanged.
+// {
+//   bool moreToSearch;
+//   NodeType *location;
+
+//   location = listData;
+//   found = false;
+//   moreToSearch = (location != NULL);
+
+//   while (moreToSearch && !found)
+//   {
+//     switch (item.ComparedTo(location->info))
+//     {
+//     case LESS:
+//     case GREATER:
+//       location = location->next;
+//       moreToSearch = (location != NULL);
+//       break;
+//     case EQUAL:
+//       found = true;
+//       item = location->info;
+//       break;
+//     }
+//   }
+//   return item;
+// }
+
+// Kazim's Version:
+
 ItemType UnsortedType::GetItem(ItemType &item, bool &found) // ItemType is a StudenType that inherets from PersonType
 // Pre:  Key member(s) of item is initialized.
 // Post: If found, item's key matches an element's key in the
 //       list and a copy of that element has been stored in item;
 //       otherwise, item is unchanged.
 {
-  bool moreToSearch;
-  NodeType *location;
 
-  location = listData;
-  found = false;
-  moreToSearch = (location != NULL);
+  ResetList(); // currentPos and cursor are at head
 
-  while (moreToSearch && !found)
+  found = true;
+
+  for (int k = 0; k < length; k++)
   {
-    switch (item.ComparedTo(location->info))
+    currentPos = currentPos->next;
+    while (!found)
     {
-    case LESS:
-    case GREATER:
-      location = location->next;
-      moreToSearch = (location != NULL);
-      break;
-    case EQUAL:
-      found = true;
-      item = location->info;
-      break;
+      switch (item.ComparedTo(currentPos->info))
+      {
+      case LESS:
+        break;
+      case GREATER:
+        break;
+      case EQUAL:
+        found = true;
+        break;
+      }
     }
   }
-  return item;
+
+  // bool moreToSearch;
+  // NodeType *location;
+
+  // location = listData;
+  // found = false;
+  // moreToSearch = (location != NULL);
+
+  // while (moreToSearch && !found)
+  // {
+  //   switch (item.ComparedTo(location->info))
+  //   {
+  //   case LESS:
+  //   case GREATER:
+  //     location = location->next;
+  //     moreToSearch = (location != NULL);
+  //     break;
+  //   case EQUAL:
+  //     found = true;
+  //     item = location->info;
+  //     break;
+  //   }
+  // }
+  // return item;
 }
 
 // void UnsortedType::DeleteItem(ItemType item)
@@ -160,7 +218,8 @@ void UnsortedType::DeleteItem(ItemType item)
 void UnsortedType::ResetList()
 // Post: Current position has been initialized.
 {
-  currentPos = NULL;
+  // currentPos = NULL;
+  currentPos = cursor = head;
 }
 
 ItemType UnsortedType::GetNextItem()
