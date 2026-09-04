@@ -183,8 +183,8 @@ void UnsortedType::Print()
 void UnsortedType::SplitLists(UnsortedType list, ItemType item, UnsortedType &list1, UnsortedType &list2)
 {
 
-  NodeType *location = listData;
-  if (listData == NULL)
+  NodeType *location = list.listData;
+  if (location == NULL)
   {
     std::cout << "Empty" << std::endl;
     return;
@@ -193,12 +193,13 @@ void UnsortedType::SplitLists(UnsortedType list, ItemType item, UnsortedType &li
   {
     if (location->info.ComparedTo(item) == LESS || location->info.ComparedTo(item) == EQUAL)
     {
-      list1.PutItem(item);
+      list1.PutItem(location->info);
     }
     else
     {
-      list2.PutItem(item);
+      list2.PutItem(location->info);
     }
+    location = location->next;
   }
 }
 

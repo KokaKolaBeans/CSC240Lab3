@@ -71,4 +71,5 @@ private:
   int length;
   NodeType *currentPos;
 };
+
 #endif
