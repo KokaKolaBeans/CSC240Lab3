@@ -2,9 +2,13 @@
 #include "ItemType.h"
 #include <iostream>
 #include <cassert>
-using namespace std;
 
-UnsortedTypeArray::UnsortedTypeArray() { length = 0; }
+UnsortedTypeArray::UnsortedTypeArray()
+{
+    length = 0;
+    currentPos = 0;
+}
+// UnsortedTypeArray::~UnsortedTypeArray(); // Apparently don't need this guy
 
 void UnsortedTypeArray::MakeEmpty() // sets all values to 0
 {
@@ -13,6 +17,7 @@ void UnsortedTypeArray::MakeEmpty() // sets all values to 0
         info[k].SetValue(0);
     }
     length = 0;
+    currentPos = 0;
 }
 
 bool UnsortedTypeArray::IsFull() const // he might want this the other way around–check StudentType
@@ -39,66 +44,134 @@ ItemType UnsortedTypeArray::GetItem(ItemType &item, bool &found)
 
     int k = 0;
 
-    switch (item.ComparedTo(info[k]))
+    while (currentPos < length - 1)
     {
-        if (k = length + 1)
+
+        switch (item.ComparedTo(info[k]))
         {
+        case LESS:
+        case GREATER:
+            break;
+        case EQUAL:
+            Match = info[k];
+            found = true;
             break;
         }
-    case LESS:
-    case GREATER:
-        break;
-    case EQUAL:
-        Match = info[k];
-        found = true;
-        break;
         k++;
     }
+
     if (found)
     {
         return Match;
     }
     else
     {
-        return;
+        return NULL;
     }
 }
+void UnsortedTypeArray::PutItem(ItemType item)
+{
+    if (length + 1 == 50)
+    {
+        std::cout << "List is Full";
+        return;
+    }
+    else if (length > 0)
+    {
+        for (int k = length - 1; k >= 0; k--)
+        {
+            info[k + 1] = info[k];
+        }
+        info[0] = item;
+    }
+    else if (length == 0)
+    {
+        info[0] = item;
+    }
+    length++;
+};
 
-void UnsortedTypeArray::DeleteItem(ItemType item)
+void UnsortedTypeArray::DeleteItem(ItemType item) // would be nice if this returned the Data/NULL or T/F but that doesn't follow the UnsortedLinked ADT
 {
     currentPos = 0;
-    ItemType Match;
+    ItemType MatchItemType;
 
     bool found = false;
 
-    int k = 0;
-
-    switch (item.ComparedTo(info[k]))
+    // int k = 0;
+    while (currentPos < length - 1)
     {
-        if (k = length + 1)
+        switch (item.ComparedTo(info[currentPos]))
         {
+        case LESS:
+        case GREATER:
+            break;
+        case EQUAL:
+            MatchItemType = info[currentPos];
+            found = true;
             break;
         }
-    case LESS:
-    case GREATER:
-        break;
-    case EQUAL:
-        Match = info[k];
-        found = true;
-        break;
-        k++;
+        currentPos++;
     }
     if (found)
     {
-        return info;
+        for (int k = currentPos; k < length - 1; k++) // shift elements left
+        {
+            info[k] = info[k + 1];
+        }
     }
-    else
+    return;
+}
+
+void UnsortedTypeArray::ResetList() { currentPos = 0; }
+
+ItemType UnsortedTypeArray::GetNextItem()
+{
+    // Function: Gets the next element in list.
+    // Pre:  List has been initialized and has not been changed since last call.
+    //       Current position is defined.
+    //       Element at current position is not last in list.
+    //
+    // Post: Current position is updated to next position.
+    //       item is a copy of element at current position.
+
+    currentPos++;
+    return info[currentPos++];
+};
+
+void UnsortedTypeArray::Print() // Prints horiziontally with commas and braces
+{
+    currentPos = 0;
+    std::cout << "{";
+    while (currentPos < length)
     {
-        return;
+
+        int printValue = info[currentPos].GetValue();
+        std::cout << printValue;
+        if (currentPos < length - 1)
+        {
+            std::cout << ", ";
+        }
+        currentPos++;
     }
+    std::cout << "}" << std::endl;
 }
 
 void UnsortedTypeArray::SplitLists(UnsortedTypeArray list, ItemType item, UnsortedTypeArray &list1, UnsortedTypeArray &list2)
 {
     currentPos = 0;
+    while (currentPos < length - 1)
+    {
+        switch (item.ComparedTo(info[currentPos]))
+        {
+        case LESS:
+        case EQUAL:
+            list1.PutItem(info[currentPos]);
+            break;
+        case GREATER:
+            list2.PutItem(info[currentPos]);
+            break;
+        }
+        currentPos++;
+    }
 }

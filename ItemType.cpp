@@ -2,6 +2,15 @@
 #include <iostream>
 using namespace std;
 
+ItemType::ItemType()
+{
+    value = 0;
+};
+ItemType::ItemType(int val)
+{
+    value = val;
+};
+
 void ItemType::Initialize(int val)
 {
     value = val;
@@ -17,11 +26,11 @@ RelationType ItemType::ComparedTo(ItemType &someValue)
     {
         return EQUAL;
     }
-    else if (someValue.GetValue() > value)
+    else if (someValue.GetValue() < value)
     {
         return LESS;
     }
-    return GREATER; // (someStudent.GetStatus() < status)
+    return GREATER; // (someValue.GetValue() > value)
 }
 
 void ItemType::SetValue(int k) { value = k; }

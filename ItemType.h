@@ -11,7 +11,9 @@ enum RelationType
 class ItemType
 {
 public:
-    void Initialize(int val);
+    ItemType();
+    ItemType(int val);        // Paramaterized constructor
+    void Initialize(int val); // Method constructor (not using this)
     int GetValue() const;
     RelationType ComparedTo(ItemType &someValue);
     void SetValue(int k);

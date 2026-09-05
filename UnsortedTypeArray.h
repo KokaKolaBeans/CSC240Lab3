@@ -9,6 +9,7 @@ class UnsortedTypeArray
 
 public:
     UnsortedTypeArray();
+    // ~UnsortedTypeArray(); // Need to Make
     void MakeEmpty();
     bool IsFull() const;
     int GetLength() const;
@@ -16,8 +17,8 @@ public:
     void PutItem(ItemType item);
     void DeleteItem(ItemType item);
     void ResetList();
-    ItemType GetNextItem();
-
+    ItemType GetNextItem(); // Need to Write
+    void Print();           // Need to Write
     void SplitLists(UnsortedTypeArray list, ItemType item, UnsortedTypeArray &list1, UnsortedTypeArray &list2);
 
 private:
