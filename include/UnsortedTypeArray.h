@@ -14,6 +14,7 @@ public:
     bool IsFull() const;
     int GetLength() const;
     ItemType GetItem(ItemType &item, bool &found);
+    ItemType GetCurrentItem();
     void PutItem(ItemType item);
     void DeleteItem(ItemType item);
     void ResetList();
@@ -26,4 +27,7 @@ private:
     ItemType info[MAX_ITEMS];
     int currentPos;
 };
+
+// typedef int ItemType;
+
 #endif

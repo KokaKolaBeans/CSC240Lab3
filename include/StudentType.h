@@ -11,6 +11,7 @@ enum StudentStatus
 class StudentType : public PersonType
 {
 public:
+  void ItemType(string newName, DateType newBirthdate, int newStatus);
   int GetStatus() const;
   void Initialize(string, DateType, int);
   RelationType ComparedTo(StudentType &someStudent);

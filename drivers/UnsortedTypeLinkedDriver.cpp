@@ -1,5 +1,5 @@
 #include "ItemType.h"
-#include "UnsortedTypeArray.h"
+#include "unsorted.h"
 #include <iostream>
 using namespace std;
 
@@ -8,13 +8,11 @@ using namespace std;
 int main()
 {
 
-    UnsortedTypeArray list;
-    UnsortedTypeArray listLow;
-    UnsortedTypeArray listHigh;
+    UnsortedType list;
+    UnsortedType listLow;
+    UnsortedType listHigh;
 
     int numbers[] = {5, -12, 34, 34, 5, 45, 8, -6, 15, 40, 20, 2, 1, 12};
-
-    //    int numLength = sizeof(numbers) / sizeof(numbers[0]);
 
     for (int k = 0; k < 14; k++) // wraps ints in ItemType wrapper; places them in list
     {
@@ -58,3 +56,5 @@ int main()
 }
 
 // g++ UnsortedTypeArrayDriver.cpp UnsortedTypeArray.cpp ItemType.cpp -o array_lab && ./array_lab
+
+// g++ drivers/UnsortedTypeArrayDriver.cpp src/UnsortedTypeArray.cpp src/ItemType.cpp -Iinclude -o array_lab && ./array_lab

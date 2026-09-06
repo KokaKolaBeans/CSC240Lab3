@@ -1,6 +1,13 @@
 #include "StudentType.h"
 #include <iostream>
 using namespace std;
+
+void StudentType::ItemType(string newName, DateType newBirthdate, int newStatus)
+{
+  status = newStatus;
+  PersonType::Initialize(newName, newBirthdate);
+}
+
 void StudentType::Initialize(string newName, DateType newBirthdate, int newStatus)
 {
   status = newStatus;

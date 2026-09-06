@@ -175,3 +175,8 @@ void UnsortedTypeArray::SplitLists(UnsortedTypeArray list, ItemType item, Unsort
         currentPos++;
     }
 }
+
+ItemType UnsortedTypeArray::GetCurrentItem()
+{
+    return info[currentPos];
+}

@@ -1,4 +1,3 @@
-
 UnsortedTypeArrayDriver (ArrayList/Integers/Part B/UnsortedTypeArray)
 
 g++ UnsortedTypeArrayDriver.cpp UnsortedTypeArray.cpp ItemType.cpp -o array_lab && ./array_lab
@@ -6,7 +5,6 @@ g++ UnsortedTypeArrayDriver.cpp UnsortedTypeArray.cpp ItemType.cpp -o array_lab 
 StudentTypeDriver (Linked List/Student/Part A/Unsorted)
 
 ??
-
 
 NOTES - ArrayList SplitLists Implementation:
 
@@ -20,7 +18,13 @@ listData(High) (currently empty list) will now point to this node. currentPosHig
 
 list(1) > item.value? YES
 
-listDataHigh AND list(1) now point to listHigh(0) 
+listDataHigh AND list(1) now point to listHigh(0)
 currentPos points to list(1)
 
-start at the first node and compare. if it's greater, add it tot */
+start at the first node and compare. if it's greater, add it tot \*/
+
+Change RelationType Return to StudentStatus Return in Student Type?? Will this break my code? This is technically what the professor suggests, however.
+
+don't need to make this change
+
+Can replace all NULL with nullptr (for pointers)

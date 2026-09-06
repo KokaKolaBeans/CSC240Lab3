@@ -183,24 +183,28 @@ void UnsortedType::Print()
 void UnsortedType::SplitLists(UnsortedType list, ItemType item, UnsortedType &list1, UnsortedType &list2)
 {
 
+  list.ResetList();
+  list1.MakeEmpty();
+  list2.MakeEmpty();
+  list1.ResetList();
+  list2.ResetList();
+
   NodeType *location = list.listData;
-  if (location == NULL)
+
+  while (list.length > 0)
   {
-    std::cout << "Empty" << std::endl;
-    return;
-  }
-  while (location != NULL)
-  {
-    if (location->info.ComparedTo(item) == LESS || location->info.ComparedTo(item) == EQUAL)
+    switch (location->info.ComparedTo(item))
     {
-      list1.PutItem(location->info);
+    case LESS:
+    case EQUAL:
+      location->next = list1.listData; // selected Node's next pointer is assigned listData's address, which points to E1
+      list1.listData = location;       // listData mvoes to the chain to point to the new first element (most recently added)
+      break;
+    case GREATER:
+      location->next = list2.listData;
+      list2.listData = location;
+      break;
     }
-    else
-    {
-      list2.PutItem(location->info);
-    }
-    location = location->next;
+    list.length--; // list is a copy; modify it if you'd like
   }
 }
-
-// g++ *.cpp -o lab3 && ./lab3
