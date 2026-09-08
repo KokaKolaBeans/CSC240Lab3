@@ -57,4 +57,6 @@ int main()
 	classList.ResetList();
 	classList.Print();
 }
-// g++ *.cpp -o lab3 && ./lab3
+//
+
+// g++ drivers/StudentTypeDriver.cpp src/unsorted.cpp src/StudentType.cpp src/PersonType.cpp src/DateType.cpp src/ItemType.cpp -Iinclude -o student_lab && ./student_lab

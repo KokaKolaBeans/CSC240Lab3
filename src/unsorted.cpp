@@ -156,25 +156,37 @@ UnsortedType::~UnsortedType()
   }
 }
 
-void UnsortedType::Print()
+/* Design and Documentation
+
+State the invariant the Print function relies on as it walks the list.
+
+Structurally, the linked list is always null-terminated. The loop invariant states that the scout node pointer 'location' will only ever point to a valid node or a nullptr,
+the latter of which it refuses to dereference. When the length of the list is greater than zero, 'location' always safely starts at 'listData,' which points to the first element,
+and safely traverses the list until the invariant is broken. If the list is empty, listData == nullptr, so Print() outputs empty.
+
+*/
+
+void UnsortedType::Print() // O(n)
 {
   // ItemType item is a StudentType. listData points to the first node after each reset.
   // -> dereferences the listData pointer so that we can access the data sitting inside this node
 
   NodeType *location = listData; // scout node; starts at listData and iterates through the list
 
-  if (listData == NULL)
+  if (listData == nullptr)
   {
     std::cout << "Empty" << std::endl;
+    return;
   }
   else
   {
-    while (location != NULL)
+    while (location != nullptr)
     {
       ItemType item = location->info;
       std::cout << "Name: " << item.NameIs() << std::endl;
       std::cout << "Status: " << item.GetStatus() << std::endl;
       location = location->next;
+      return;
       // Complete this.;
     }
   }
@@ -191,9 +203,15 @@ void UnsortedType::SplitLists(UnsortedType list, ItemType item, UnsortedType &li
 
   NodeType *location = list.listData;
 
-  while (list.length > 0)
+  if (list.listData == nullptr)
   {
-    switch (location->info.ComparedTo(item))
+    cout << "Input list is empty." << endl;
+    return;
+  }
+
+  while (list.length > 0) // n
+  {
+    switch (location->info.ComparedTo(item)) // c
     {
     case LESS:
     case EQUAL:

@@ -8,9 +8,10 @@ class PersonType
 public:
   void Initialize(string, DateType);
   string NameIs();
-  RelationType ComparedTo(PersonType& somePerson);
+  RelationType ComparedTo(PersonType &somePerson);
   DateType BirthdateIs();
   void Print();
+
 private:
   string name;
   DateType birthdate;

@@ -26,7 +26,7 @@ RelationType ItemType::ComparedTo(ItemType &someValue)
     {
         return EQUAL;
     }
-    else if (someValue.GetValue() < value)
+    else if (someValue.GetValue() > value)
     {
         return LESS;
     }

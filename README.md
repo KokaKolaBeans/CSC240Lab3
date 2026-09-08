@@ -1,30 +1,41 @@
-UnsortedTypeArrayDriver (ArrayList/Integers/Part B/UnsortedTypeArray)
 
-g++ UnsortedTypeArrayDriver.cpp UnsortedTypeArray.cpp ItemType.cpp -o array_lab && ./array_lab
+    **1. State the invariant your Print function relies on as it walks the list. Write it as a comment above the function. (Graded under Design and Documentation.)**
 
-StudentTypeDriver (Linked List/Student/Part A/Unsorted)
+    - List is null terminated – location only points to valid node or nullptr – never dereferences a nullptr – empty list: listData == nullptr
+    - Unsorted LINE 169
 
-??
+    2. What is the running time of your Print, and what specifically in your loop determines it? Answer by pointing at your code, not at the general case.
+    
+    The running time is O(n), but more specifically, it's big-Theta(n) -->  unsorted LINE 182 --> while (location != nullptr)
 
-NOTES - ArrayList SplitLists Implementation:
+    3. Run the driver and confirm Print list 3: outputs Empty. Show the line in your function that produces it. What would the output have been if you had omitted that check?
 
-I think the linked implementation in the lab uses a freelist, but i'm not sure that's going to play any role because we aren't deleting items. Check list node 0. If it is GREATER, PutItem in listHigh. Advance to node one. If it is LESS, Putitem in listLow... wait this won't work because this would involve a bunch of copying. We have to move nodes from list to list1 and list2
+    g++ drivers/StudentTypeDriver.cpp src/unsorted.cpp src/StudentType.cpp src/PersonType.cpp src/DateType.cpp src/ItemType.cpp -Iinclude -o student_lab && ./student_lab
+  
+    Unsorted LINE 176: if (listData == nullptr)
 
-So we should pass the master list in by value so we can rip apart the two linked lists and splice them into separate output lists. So...
+    Dereferencing a nullptr typically causes a segmentation fault.
 
-Check list(0). list(0) > item.value? YES
+    4. Your ComparedTo returns EQUAL for two students in some circumstance. Describe exactly when, and say whether that is what you intended.
 
-listData(High) (currently empty list) will now point to this node. currentPosHigh will also point to this node
+    g++ drivers/StudentTypeDriver.cpp src/unsorted.cpp src/StudentType.cpp src/PersonType.cpp src/DateType.cpp src/ItemType.cpp -Iinclude -o student_lab && ./student_lab
 
-list(1) > item.value? YES
+    It returns EQUAL when enrollment statuses are the same. I DID intend this to ahppen
 
-listDataHigh AND list(1) now point to listHigh(0)
-currentPos points to list(1)
+    5. Give the running time of your array SplitLists and your linked version. If they are the same order, say what is different about the constant factor and why.
 
-start at the first node and compare. if it's greater, add it tot \*/
+    SplitList Array is O(n^2). It is an expensive impelmentation because it places elements at the front using PutItem--> reshuffling required
+    --> UnsortedTypeArray LINES 160 and 72 (this is the alternative implementation–I made two!)
 
-Change RelationType Return to StudentStatus Return in Student Type?? Will this break my code? This is technically what the professor suggests, however.
+    SplitList Linked is O(n); but each operation is much cheaper – rewire some nodes, no copying required (except for the pass by value), no reshuffling
+    --> unsorted 193
 
-don't need to make this change
+    6. Did your linked version copy items into the new lists or relink existing nodes? Point to the code. If you copied, describe what relinking would have changed.
 
-Can replace all NULL with nullptr (for pointers)
+    --> unsorted 193 
+
+    It relinks the nodes
+
+    7. Run Part B on the test data and confirm both 34s and both 5s land correctly. Show the output.
+
+    Yep

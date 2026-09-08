@@ -61,10 +61,21 @@ public:
   // Post: Current position is updated to next position.
   //       item is a copy of element at current position.
 
+  /*State the invariant the Print function relies on as it walks the list.
+
+  Structurally, the linked list is always null-terminated. The loop invariant states that the scout node pointer 'location' will only ever point to a valid node or a nullptr,
+  the latter of which it refuses to dereference. When the length of the list is greater than zero, 'location' always safely starts at 'listData,' which points to the first element,
+  and safely traverses the list until the invariant is broken. If the list is empty, listData == nullptr, so Print() outputs empty.
+
+  */
+
   void Print();
-  // Complete this...
+  // Pre: Linked List UnsortedType (this object) has been initialized and continues 0 or more elements
+  // Post: All elements from UnsortedType list are printed to the terminal
 
   void SplitLists(UnsortedType list, ItemType item, UnsortedType &list1, UnsortedType &list2);
+  // Pre: ItemType has been initilized; UnsortedType lists have been initialized
+  // Post: If list is empty, error message is output; if not, list 1 and list 2 have been modified to take on the appropriate values
 
 private:
   NodeType *listData;

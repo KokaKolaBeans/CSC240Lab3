@@ -59,4 +59,4 @@ int main()
 
 // g++ UnsortedTypeArrayDriver.cpp UnsortedTypeArray.cpp ItemType.cpp -o array_lab && ./array_lab
 
-// g++ drivers/UnsortedTypeArrayDriver.cpp src/UnsortedTypeArray.cpp src/ItemType.cpp -Iinclude -o array_lab && ./array_lab
+//. g++ drivers/UnsortedTypeArrayDriver.cpp src/UnsortedTypeArray.cpp src/ItemType.cpp -Iinclude -o array_lab && ./array_lab

@@ -69,7 +69,7 @@ ItemType UnsortedTypeArray::GetItem(ItemType &item, bool &found)
         return NULL;
     }
 }
-void UnsortedTypeArray::PutItem(ItemType item)
+void UnsortedTypeArray::PutItem(ItemType item) //
 {
     if (length + 1 == 50)
     {
@@ -160,16 +160,16 @@ void UnsortedTypeArray::Print() // Prints horiziontally with commas and braces
 void UnsortedTypeArray::SplitLists(UnsortedTypeArray list, ItemType item, UnsortedTypeArray &list1, UnsortedTypeArray &list2)
 {
     currentPos = 0;
-    while (currentPos < length - 1)
+    while (currentPos < length) // n
     {
-        switch (item.ComparedTo(info[currentPos]))
+        switch (item.ComparedTo(list.info[currentPos])) // n == n^2
         {
         case LESS:
         case EQUAL:
-            list1.PutItem(info[currentPos]);
+            list2.PutItem(info[currentPos]);
             break;
         case GREATER:
-            list2.PutItem(info[currentPos]);
+            list1.PutItem(info[currentPos]);
             break;
         }
         currentPos++;
